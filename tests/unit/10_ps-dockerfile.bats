@@ -8,7 +8,7 @@ setup() {
 }
 
 teardown() {
-  destroy_app
+  destroy_app || true
   global_teardown
 }
 
