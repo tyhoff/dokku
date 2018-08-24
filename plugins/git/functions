@@ -91,6 +91,10 @@ git_trigger_build() {
   declare APP="$1" TMP_WORK_DIR="$2" REV="$3"
 
   plugn trigger post-extract "$APP" "$TMP_WORK_DIR" "$REV"
+
+  echo $'\e[1G\e[K'"----TYLER-> $(pwd)"
+  echo $'\e[1G\e[K'"----TYLER-> $(ls)"
+
   if [[ -f Dockerfile ]] && [[ "$([[ -f .env ]] && grep -q BUILDPACK_URL .env; echo $?)" != "0" ]] && [[ ! -f ".buildpacks" ]] && [[ -z $(config_get "$APP" BUILDPACK_URL || true) ]]; then
     plugn trigger pre-receive-app "$APP" "dockerfile" "$TMP_WORK_DIR" "$REV"
     dokku_receive "$APP" "dockerfile" "$TMP_WORK_DIR"
